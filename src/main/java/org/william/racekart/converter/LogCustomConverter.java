@@ -1,4 +1,4 @@
-package org.william.racekart.util;
+package org.william.racekart.converter;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -9,12 +9,12 @@ import java.util.function.Function;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
 public @interface LogCustomConverter {
-    Class<? extends Function<?, ?>> customConverter() default DefaultFunction.class;
+    Class<? extends Function<String, ?>> customConverter() default DefaultFunction.class;
 }
 
-class DefaultFunction implements Function<Object, Object> {
+class DefaultFunction implements Function<String, Object> {
     @Override
-    public Object apply(Object o) {
+    public Object apply(String o) {
         return null;
     }
 }

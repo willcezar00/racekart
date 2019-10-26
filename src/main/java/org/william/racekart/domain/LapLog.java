@@ -2,15 +2,12 @@ package org.william.racekart.domain;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.william.racekart.util.LogColumn;
-import org.william.racekart.util.LogCustomConverter;
+import org.william.racekart.converter.LogColumn;
+import org.william.racekart.converter.LogCustomConverter;
+import org.william.racekart.util.PilotConverter;
 import org.william.racekart.util.TimeConverter;
 
 import java.math.BigDecimal;
-import java.time.Period;
-import java.util.Date;
-import java.util.List;
-import java.util.function.Function;
 
 @Getter
 @Setter
@@ -20,15 +17,17 @@ public class LapLog {
     @LogColumn(name = "Hora")
     private Long eventTime;
 
+    @LogCustomConverter(customConverter = PilotConverter.class)
     @LogColumn(name = "Piloto")
     private Pilot pilot;
 
     @LogColumn(name = "Nº Volta")
     private Integer lapNumber;
 
+    @LogCustomConverter(customConverter = TimeConverter.class)
     @LogColumn(name = "Tempo Volta")
     private Long lapDuration;
 
     @LogColumn(name = "Velocidade média da volta")
-    private BigDecimal avarageVelocity;
+    private BigDecimal averageSpeed;
 }

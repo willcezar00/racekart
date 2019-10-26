@@ -1,7 +1,7 @@
 package org.william.racekart.repositories;
 
-import org.william.racekart.util.EntityConverter;
-import org.william.racekart.util.Converter;
+import org.william.racekart.converter.EntityConverter;
+import org.william.racekart.converter.Converter;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

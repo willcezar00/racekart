@@ -1,4 +1,4 @@
-package org.william.racekart.util;
+package org.william.racekart.converter;
 
 
 import java.lang.annotation.ElementType;
@@ -11,5 +11,4 @@ import java.lang.annotation.Target;
 @Target(ElementType.FIELD)
 public @interface LogColumn {
     String name() default "";
-
 }

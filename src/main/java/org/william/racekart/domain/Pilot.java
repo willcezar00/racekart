@@ -13,7 +13,7 @@ public class Pilot {
 
     private String name;
 
-    Pilot(String arg){
+    public Pilot(String arg){
         String[] tokens = arg.split("-");
         setCode(tokens[0].trim());
         setName(tokens[1].trim());

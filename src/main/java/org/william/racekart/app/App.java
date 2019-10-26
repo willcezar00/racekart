@@ -1,9 +1,8 @@
 package org.william.racekart.app;
 
 import org.william.racekart.domain.LapLog;
-import org.william.racekart.util.LogColumn;
+import org.william.racekart.converter.LogColumn;
 
-import java.time.Period;
 import java.util.Arrays;
 
 public class App {
