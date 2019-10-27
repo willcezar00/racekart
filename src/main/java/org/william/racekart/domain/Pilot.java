@@ -1,5 +1,6 @@
 package org.william.racekart.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -7,15 +8,10 @@ import lombok.Setter;
 @Getter
 @Setter
 @EqualsAndHashCode(of = "code")
+@AllArgsConstructor
 public class Pilot {
 
     private String code;
 
     private String name;
-
-    public Pilot(String arg){
-        String[] tokens = arg.split("-");
-        setCode(tokens[0].trim());
-        setName(tokens[1].trim());
-    }
 }

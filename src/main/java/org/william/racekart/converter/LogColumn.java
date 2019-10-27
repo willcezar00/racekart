@@ -11,4 +11,6 @@ import java.lang.annotation.Target;
 @Target(ElementType.FIELD)
 public @interface LogColumn {
     String name() default "";
+
+    boolean nullable() default true;
 }

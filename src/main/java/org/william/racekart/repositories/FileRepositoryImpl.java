@@ -12,13 +12,15 @@ public class FileRepositoryImpl implements FileRepository {
 
 
     private static final String TAP_SEPARATOR = "\t";
+
     /**
      * read file considering separated words with tabs (\t)
+     *
      * @param path path to  input file
      */
     @Override
-    public <TYPE> List<TYPE> read(String path,  Class<TYPE> typeClass) {
-        try{
+    public <TYPE> List<TYPE> read(String path, Class<TYPE> typeClass) {
+        try {
             List<TYPE> dtoList = new ArrayList<>();
 
             BufferedReader buferReader = new BufferedReader(new FileReader(path));
@@ -28,18 +30,18 @@ public class FileRepositoryImpl implements FileRepository {
 
             Converter<TYPE> inputConverter = new EntityConverter<TYPE>(buferReader.readLine().split(TAP_SEPARATOR), typeClass);
 
-            while((lineFetched = buferReader.readLine()) != null){
-                    wordsArray = lineFetched.split(TAP_SEPARATOR);
-                    dtoList.add(inputConverter.convert(wordsArray));
+            while ((lineFetched = buferReader.readLine()) != null) {
+                wordsArray = lineFetched.split(TAP_SEPARATOR);
+                dtoList.add(inputConverter.convert(wordsArray));
             }
 
             buferReader.close();
 
             return dtoList;
 
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-             return null;
+            return null;
         }
     }
 
