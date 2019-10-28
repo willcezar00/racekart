@@ -1,16 +1,20 @@
 package org.william.racekart.repositories;
 
-import org.william.racekart.converter.EntityConverter;
+import lombok.Getter;
+import lombok.Setter;
 import org.william.racekart.converter.Converter;
-import org.william.racekart.domain.LapLog;
+import org.william.racekart.converter.EntityConverter;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 
+@Setter
+@Getter
 public class FileRepositoryImpl implements FileRepository {
 
+    private static FileRepositoryImpl fileRepository = null;
 
     private static final String TAP_SEPARATOR = "\t";
 
@@ -49,5 +53,12 @@ public class FileRepositoryImpl implements FileRepository {
     @Override
     public void write() {
 
+    }
+
+    public static FileRepositoryImpl getInstance() {
+        if (fileRepository.equals(null)) {
+            fileRepository = new FileRepositoryImpl();
+        }
+        return fileRepository;
     }
 }

@@ -2,6 +2,11 @@ package org.william.racekart.util;
 
 import org.william.racekart.converter.ParseException;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
+
 public class TimeConverterUtil {
 
     private static final String TIME_SEPARATOR_REGEX = "[\\.:]";
@@ -23,6 +28,16 @@ public class TimeConverterUtil {
         return finalTime;
     }
 
+    public static String getTimeByLong(Long durationInMillis){
+        long millis = durationInMillis % 1000;
+        long second = (durationInMillis / 1000) % 60;
+        long minute = (durationInMillis / (1000 * 60)) % 60;
+        long hour = (durationInMillis / (1000 * 60 * 60)) % 24;
+
+        return String.format("%02d:%02d:%02d.%d", hour, minute, second, millis);
+    }
+
     private TimeConverterUtil() {
     }
+
 }
