@@ -1,4 +1,4 @@
-package org.william.racekart.converter;
+package org.william.racekart.util;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -10,7 +10,7 @@ import java.text.MessageFormat;
 
 @Getter
 @Setter(AccessLevel.PRIVATE)
-public class NoSetterMethodException extends Exception {
+public class NoSetterMethodException extends RuntimeException {
     private Class<?> classType;
     private Field field;
     private String methodName;

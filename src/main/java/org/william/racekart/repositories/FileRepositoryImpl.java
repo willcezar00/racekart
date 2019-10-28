@@ -2,6 +2,7 @@ package org.william.racekart.repositories;
 
 import org.william.racekart.converter.EntityConverter;
 import org.william.racekart.converter.Converter;
+import org.william.racekart.domain.LapLog;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

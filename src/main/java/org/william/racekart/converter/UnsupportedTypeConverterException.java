@@ -9,7 +9,7 @@ import java.text.MessageFormat;
 
 @Getter
 @Setter(AccessLevel.PRIVATE)
-public class UnsupportedTypeConverterException extends Exception {
+public class UnsupportedTypeConverterException extends RuntimeException {
     private Field field;
 
     public UnsupportedTypeConverterException() {

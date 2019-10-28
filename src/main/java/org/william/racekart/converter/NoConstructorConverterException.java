@@ -9,7 +9,7 @@ import java.text.MessageFormat;
 
 @Getter
 @Setter(AccessLevel.PRIVATE)
-public class NoConstructorConverterException extends Exception {
+public class NoConstructorConverterException extends RuntimeException {
     private Class<?> converterClass;
     private Field field;
 

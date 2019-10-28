@@ -9,7 +9,7 @@ import java.text.MessageFormat;
 
 @Getter
 @Setter(AccessLevel.PRIVATE)
-public class ParseException extends Exception {
+public class ParseException extends RuntimeException {
     private Field field;
     private String value;
 
