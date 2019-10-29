@@ -1,0 +1,19 @@
+Pre-requisitos: este é um projeto maven e necessecita do mesmo instalado para rodar a aplicação, e também é necessário que seja executado com arquvios UTF-8, que pode ser especificado no comando de execução.
+
+Após clonar o projeto, abra o cmd e execute o seguinte comando na pasta do projeto:
+
+> mvn install
+Após a execução do comando navegue ate a pasta target
+
+> cd target
+
+Existem duas formas de executar o projeto, a primeira e utilizando a entrada e saida padrão:
+
+> java -jar -Dfile.encoding=UTF-8 racekart-1.0.jar <  <input-file>  > <output-file>
+
+Neste caso está sendo usado a entrada e saída padrão e utilizando o redirecionamento de fluxos de entrada e saída para os arquivos indicados. A segunda forma é especificando os arquivos:
+
+> java -jar -Dfile.encoding=UTF-8 racekart-1.0.jar  <input-file>  <output-file>
+
+
+Observação: foi utilizado Lombok para evitar a escrita de códigos repetitivos, e Junit para a escrita de testes unitários.
