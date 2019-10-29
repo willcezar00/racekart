@@ -1,5 +1,7 @@
 package org.william.racekart.domain;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import org.william.racekart.converter.LogColumn;
@@ -9,8 +11,8 @@ import org.william.racekart.util.TimeConverter;
 
 import java.math.BigDecimal;
 
-@Getter
-@Setter
+@Data
+@EqualsAndHashCode(of = { "pilot", "lapNumber"})
 public class LapLog {
 
     @LogCustomConverter(customConverter = TimeConverter.class)

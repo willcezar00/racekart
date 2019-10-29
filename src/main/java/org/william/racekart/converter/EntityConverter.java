@@ -9,10 +9,7 @@ import org.william.racekart.util.ReflectionUtil;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 @Getter(AccessLevel.PRIVATE)
 @Setter(AccessLevel.PRIVATE)
@@ -40,26 +37,31 @@ public class EntityConverter<TYPE> implements Converter<TYPE> {
 
     public EntityConverter(String[] headers, Class<TYPE> typeClass) {
         setHeaders(headers);
+        System.out.println("headers from file");
+        System.out.println(Arrays.toString(headers));
         Map<String, Integer> indexByHeader = ArrayUtil.mapIndexByElement(headers);
         for (Field field : typeClass.getDeclaredFields()) {
-            LogColumn logColumn = typeClass.getAnnotation(LogColumn.class);
+            LogColumn logColumn = field.getAnnotation(LogColumn.class);
             String header = logColumn == null ? field.getName() : logColumn.name();
+            System.out.println(header);
             if (!indexByHeader.containsKey(header)) continue;
             if ((logColumn == null || logColumn.nullable()) && !field.getType().isPrimitive()) {
                 getNullableFields().add(field);
             }
-            LogCustomConverter logCustomConverter = typeClass.getAnnotation(LogCustomConverter.class);
+            LogCustomConverter logCustomConverter = field.getAnnotation(LogCustomConverter.class);
             if (logCustomConverter != null
                     && !logCustomConverter.customConverter().equals(DefaultFunctionConverter.class)) {
                 Constructor<? extends FunctionConverter> constructor = ReflectionUtil.getContructor(logCustomConverter.customConverter());
                 FunctionConverter<?> functionConverter = ReflectionUtil.newInstance(constructor);
                 getConverterByField().put(field, functionConverter);
+            } else {
+                getConverterByField().put(field, FunctionConverterCached.getConverterFunction(field.getType()));
             }
             getSetterMethodByField().put(field, ReflectionUtil.getSetterMethod(field));
             getFieldByIndex().put(indexByHeader.get(header), field);
             getHeaderByField().put(field, header);
-            setConstructor(ReflectionUtil.getContructor(typeClass));
         }
+        setConstructor(ReflectionUtil.getContructor(typeClass));
     }
 
     private void checkInvalidRow(String[] row) {
@@ -70,7 +72,7 @@ public class EntityConverter<TYPE> implements Converter<TYPE> {
         try {
             return getConverterByField().get(field).convert(value);
         } catch (Exception e) {
-            throw new ParseException(field, value);
+            throw new ParseException(field, value, e);
         }
     }
 

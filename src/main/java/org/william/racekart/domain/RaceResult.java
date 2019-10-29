@@ -1,27 +1,17 @@
 package org.william.racekart.domain;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
-@Setter
+import java.util.List;
+
+@Data
 @AllArgsConstructor
 public class RaceResult {
 
-    private Integer position;
+    private LapLog bestLap;
 
-    private Pilot pilot;
-
-    private Integer completedLaps;
-
-    private String raceTotalTime;
-
-    private String bestLap;
-
-    private String avarageRaceSpeed;
-
-    private Integer timeDifferenceToWinner;
-
-
+    private List<PilotRaceLog> pilotRaceLogs;
 }

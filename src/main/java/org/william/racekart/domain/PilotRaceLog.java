@@ -1,13 +1,13 @@
 package org.william.racekart.domain;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.util.List;
 
-@Getter
-@Setter
+@Data
+@EqualsAndHashCode(of = "pilot")
+@ToString(exclude = "lapLogs")
 public class PilotRaceLog implements Comparable<PilotRaceLog> {
 
     private Integer position;
@@ -30,6 +30,7 @@ public class PilotRaceLog implements Comparable<PilotRaceLog> {
     public int compareTo(PilotRaceLog o) {
         if (o.getRaceTime() == null) return -1;
         if (getRaceTime() == null) return 1;
-        return getRaceTime().compareTo(o.getRaceTime());
+        int result = getRaceTime().compareTo(o.getRaceTime());
+        return result == 0 ? getPilot().getName().compareTo(o.getPilot().getName()) : result;
     }
 }

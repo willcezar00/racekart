@@ -1,12 +1,8 @@
 package org.william.racekart.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-@Getter
-@Setter
+@Data
 @EqualsAndHashCode(of = "code")
 @AllArgsConstructor
 public class Pilot {

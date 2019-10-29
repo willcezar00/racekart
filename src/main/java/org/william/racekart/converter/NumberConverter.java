@@ -49,7 +49,7 @@ public class NumberConverter<TYPE> implements FunctionConverter<TYPE> {
 
     @Override
     public TYPE convert(String columnValue) throws Exception {
-        return StringUtil.isNullOrEmpty(columnValue) ? null : getConstructor().newInstance(columnValue);
+        return StringUtil.isNullOrEmpty(columnValue) ? null : getConstructor().newInstance(columnValue.replace(",", "."));
     }
 
 }

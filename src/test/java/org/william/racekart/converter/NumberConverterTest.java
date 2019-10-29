@@ -4,6 +4,8 @@ import org.junit.Test;
 import org.junit.internal.runners.JUnit38ClassRunner;
 import org.junit.runner.RunWith;
 
+import java.lang.reflect.InvocationTargetException;
+
 import static org.junit.Assert.assertEquals;
 
 public class NumberConverterTest {
@@ -24,7 +26,7 @@ public class NumberConverterTest {
         assertEquals(expected,result);
     }
 
-    @Test(expected = ParseException.class)
+    @Test(expected = InvocationTargetException.class)
     public void convertIntParseErrorTest() throws Exception {
         NumberConverter<Integer> converter = new NumberConverter<>(Integer.TYPE);
         converter.convert("12313e");
