@@ -55,22 +55,3 @@ Não obrigatório. Faça apenas caso se identifique com o problema ou se achar q
 
 
 
-SOLUÇÃO
-=======
-* A solução poderá ser desenvolvida em qualquer linguagem da sua escolha;
-* Seja criativo;
-* Uma outra pessoa estará lendo o que você fez, portanto, lembre-se de buscar trazer a semântica do problema no seu código;
-* Não é necessário utilizar nenhum framework, procure utilizar os recursos da linguagem;
-
-GOSTARÍAMOS DE VER
-==================
-* Clean code;
-* Imutabilidade (quando possível);
-* Tratamento de Erros;
-* Separação clara de responsabilidades (Domínios, Serviços, Repositórios, etc);
-* Garanta a qualidade do seu código;
-
-ENTREGA
-=======
-* **Não** faça um fork desse projeto. Crie um repositório no seu perfil do GitHub e nos envie a url;
-* Crie um arquivo SUAS-INSTRUÇÕES.txt para adicionar algum comentário/observação que achar importante;
