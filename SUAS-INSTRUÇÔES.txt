@@ -1,19 +1,19 @@
-Pre-requisitos: este È um projeto maven e necessecita do mesmo instalado para rodar a aplicaÁ„o, e tambÈm È necess·rio que seja executado com arquvios UTF-8, que pode ser especificado no comando de execuÁ„o.
+ÔªøPre-requisitos: este √© um projeto maven e necessecita do mesmo instalado para rodar a aplica√ß√£o, e tamb√©m √© necess√°rio que seja executado com arquvios UTF-8, que pode ser especificado no comando de execu√ß√£o.
 
-ApÛs clonar o projeto, abra o cmd e execute o seguinte comando na pasta do projeto:
+Ap√≥s clonar o projeto, abra o cmd e execute o seguinte comando na pasta do projeto:
 
 > mvn install
-ApÛs a execuÁ„o do comando navegue ate a pasta target
+Ap√≥s a execu√ß√£o do comando navegue ate a pasta target
 
 > cd target
 
-Existem duas formas de executar o projeto, a primeira e utilizando a entrada e saida padr„o:
+Existem duas formas de executar o projeto, a primeira e utilizando a entrada e saida padr√£o:
 
 > java -jar -Dfile.encoding=UTF-8 racekart-1.0.jar <  <input-file>  > <output-file>
 
-Neste caso est· sendo usado a entrada e saÌda padr„o e utilizando o redirecionamento de fluxos de entrada e saÌda para os arquivos indicados. A segunda forma È especificando os arquivos:
+Neste caso est√° sendo usado a entrada e sa√≠da padr√£o e utilizando o redirecionamento de fluxos de entrada e sa√≠da para os arquivos indicados. A segunda forma √© especificando os arquivos:
 
 > java -jar -Dfile.encoding=UTF-8 racekart-1.0.jar  <input-file>  <output-file>
 
 
-ObservaÁ„o: foi utilizado Lombok para evitar a escrita de cÛdigos repetitivos, e Junit para a escrita de testes unit·rios.
+Observa√ß√£o: foi utilizado Lombok para evitar a escrita de c√≥digos repetitivos, e Junit para a escrita de testes unit√°rios.
