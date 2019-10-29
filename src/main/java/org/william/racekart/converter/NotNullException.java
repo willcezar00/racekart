@@ -9,7 +9,7 @@ import java.text.MessageFormat;
 
 @Getter
 @Setter(AccessLevel.PRIVATE)
-public class NotNullException extends RuntimeException  {
+public class NotNullException extends RuntimeException {
     private Field field;
 
     public NotNullException(Field field) {

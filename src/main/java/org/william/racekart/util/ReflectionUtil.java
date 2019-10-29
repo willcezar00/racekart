@@ -19,7 +19,6 @@ public class ReflectionUtil {
         } catch (NoSuchMethodException e) {
             throw new NoSetterMethodException(field, setterName);
         }
-
     }
 
     public static <TYPE> TYPE newInstance(Constructor<TYPE> constructor) {
@@ -34,7 +33,7 @@ public class ReflectionUtil {
         try {
             return method.invoke(object, args);
         } catch (Exception e) {
-            throw new Invocationxception(method, e);
+            throw new InvocationException(method, e);
         }
     }
 

@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.william.racekart.converter.Converter;
 import org.william.racekart.converter.EntityConverter;
+import org.william.racekart.converter.HeadersException;
 import org.william.racekart.domain.PilotRaceLog;
 import org.william.racekart.domain.RaceResult;
 import org.william.racekart.util.TimeConverterUtil;
@@ -13,10 +14,7 @@ import org.william.racekart.util.TimeConverterUtil;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 @Setter
 @Getter
@@ -46,10 +44,10 @@ public class FileRepositoryImpl implements FileRepository {
             String lineFetched = null;
             String[] wordsArray;
 
-            Converter<TYPE> inputConverter = new EntityConverter<TYPE>(bufferedReader.readLine().split(SEPARATOR), typeClass);
-
+            Converter<TYPE> inputConverter = new EntityConverter<TYPE>(bufferedReader.readLine().trim().split(SEPARATOR), typeClass);
+            checkHeaders(inputConverter);
             while ((lineFetched = bufferedReader.readLine()) != null) {
-                wordsArray = lineFetched.split(SEPARATOR);
+                wordsArray = lineFetched.trim().split(SEPARATOR);
                 dtoList.add(inputConverter.convert(wordsArray));
             }
 
@@ -61,18 +59,25 @@ public class FileRepositoryImpl implements FileRepository {
         }
     }
 
+    private <TYPE> void checkHeaders(Converter<TYPE> inputConverter) {
+        Set<String> ignoreHeaders = inputConverter.getIgnoreHeadersFromClass();
+        if (!ignoreHeaders.isEmpty())
+            throw new HeadersException(new ArrayList<>(ignoreHeaders).toArray(new String[ignoreHeaders.size()]));
+    }
+
     private Reader getReader(String path) {
         try {
-            return path == null ? new InputStreamReader(System.in, StandardCharsets.UTF_8)
-                    : new InputStreamReader(new FileInputStream(path), StandardCharsets.UTF_8);
+            InputStream inputStream = path == null ? System.in : new FileInputStream(path);
+            return new InputStreamReader(inputStream, StandardCharsets.UTF_8);
         } catch (java.io.FileNotFoundException e) {
             throw new FileNotFoundException(path);
         }
     }
 
-    private Writer getWriter(String path) throws IOException {
+    private Writer getWriter(String path) {
         try {
-            return path == null ? new OutputStreamWriter(System.out) : new FileWriter(path);
+            OutputStream outputStream = path == null ? System.out : new FileOutputStream(path);
+            return new OutputStreamWriter(outputStream, StandardCharsets.UTF_8);
         } catch (java.io.FileNotFoundException e) {
             throw new FileNotFoundException(path);
         }
@@ -102,7 +107,7 @@ public class FileRepositoryImpl implements FileRepository {
             bufferedWriter.close();
 
         } catch (IOException e) {
-            throw new InputException(path);
+            throw new OutputException(path);
         }
     }
 

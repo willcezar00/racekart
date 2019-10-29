@@ -22,6 +22,7 @@ public class EntityConverter<TYPE> implements Converter<TYPE> {
     private Set<Field> nullableFields = new HashSet<>();
     private Constructor<TYPE> constructor;
     private String[] headers;
+    private Set<String> headersFromClass = new HashSet<>();
 
     @Override
     public TYPE convert(String[] row) {
@@ -35,15 +36,27 @@ public class EntityConverter<TYPE> implements Converter<TYPE> {
         return entity;
     }
 
+    @Override
+    public Set<String> getIgnoreHeadersFromFile() {
+        Set<String> ignoreHeadersFromFile = new TreeSet<>(Arrays.asList(getHeaders()));
+        ignoreHeadersFromFile.removeAll(getHeaderByField().values());
+        return ignoreHeadersFromFile;
+    }
+
+    @Override
+    public Set<String> getIgnoreHeadersFromClass() {
+        Set<String> ignoreHeadersFromClass = new TreeSet<>(getHeadersFromClass());
+        ignoreHeadersFromClass.removeAll(getHeaderByField().values());
+        return ignoreHeadersFromClass;
+    }
+
     public EntityConverter(String[] headers, Class<TYPE> typeClass) {
         setHeaders(headers);
-        System.out.println("headers from file");
-        System.out.println(Arrays.toString(headers));
         Map<String, Integer> indexByHeader = ArrayUtil.mapIndexByElement(headers);
         for (Field field : typeClass.getDeclaredFields()) {
             LogColumn logColumn = field.getAnnotation(LogColumn.class);
             String header = logColumn == null ? field.getName() : logColumn.name();
-            System.out.println(header);
+            getHeadersFromClass().add(header);
             if (!indexByHeader.containsKey(header)) continue;
             if ((logColumn == null || logColumn.nullable()) && !field.getType().isPrimitive()) {
                 getNullableFields().add(field);
@@ -55,7 +68,11 @@ public class EntityConverter<TYPE> implements Converter<TYPE> {
                 FunctionConverter<?> functionConverter = ReflectionUtil.newInstance(constructor);
                 getConverterByField().put(field, functionConverter);
             } else {
-                getConverterByField().put(field, FunctionConverterCached.getConverterFunction(field.getType()));
+                try {
+                    getConverterByField().put(field, FunctionConverterCached.getConverterFunction(field.getType()));
+                } catch (UnsupportedTypeConverterException e) {
+                    throw new UnsupportedTypeConverterException(field);
+                }
             }
             getSetterMethodByField().put(field, ReflectionUtil.getSetterMethod(field));
             getFieldByIndex().put(indexByHeader.get(header), field);

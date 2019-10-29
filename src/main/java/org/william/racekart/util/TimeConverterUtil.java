@@ -15,7 +15,7 @@ public class TimeConverterUtil {
      * @param time string that representing time. ex 1:02.852
      * @return long representing the time
      */
-    public static Long parseTime(String time) throws Exception {
+    public static Long parseTime(String time) {
         if (StringUtil.isNullOrEmpty(time)) return null;
         Long finalTime = 0L;
         String[] tokens = time.split(TIME_SEPARATOR_REGEX);
@@ -38,8 +38,6 @@ public class TimeConverterUtil {
         }
 
         return minute > 0 ? String.format("%d:%02d.%03d", minute, second, millis) : String.format("%d.%03d", second, millis);
-
-
     }
 
     public static String getTimeByLongWithDate(Long time, String pattern) {

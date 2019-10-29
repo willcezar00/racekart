@@ -13,7 +13,7 @@ public @interface LogCustomConverter {
 
 class DefaultFunctionConverter implements FunctionConverter<Object> {
     @Override
-    public Object convert(String o) {
-        return o;
+    public Object convert(String arg) {
+        return arg;
     }
 }

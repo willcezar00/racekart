@@ -47,6 +47,7 @@ public class RaceResultServiceImpl implements RaceResultService {
         PilotRaceLog winner = pilotRaceLogs.get(0);
         winner.setPosition(1);
         winner.setWinnerDifference(0L);
+        // TODO validar se piloto chegou ao fim da corrida
         for (int i = 1; i < pilotRaceLogs.size(); i++) {
             PilotRaceLog pilot = pilotRaceLogs.get(i);
             if (pilot.getRaceTime() == pilotRaceLogs.get(i - 1).getRaceTime()) {
@@ -67,12 +68,13 @@ public class RaceResultServiceImpl implements RaceResultService {
         for (Map.Entry<Pilot, List<LapLog>> entry : lapsByPilot.entrySet()) {
             PilotRaceLog pilotRaceLog = new PilotRaceLog();
             pilotRaceLog.setPilot(entry.getKey());
+            // TODO validar voltas não consecutivas
             pilotRaceLog.setCompletedLaps(entry.getValue().size());
             pilotRaceLog.setAverageSpeed(entry.getValue().stream()
                     .map(LapLog::getAverageSpeed)
                     .reduce(BigDecimal::add)
-                    .get().divide(BigDecimal.valueOf(pilotRaceLog.getCompletedLaps()),3, RoundingMode.CEILING));
-            pilotRaceLog.setRaceTime(entry.getValue().stream().mapToLong(x -> x.getLapDuration()).sum());
+                    .get().divide(BigDecimal.valueOf(pilotRaceLog.getCompletedLaps()), 3, RoundingMode.CEILING));
+            pilotRaceLog.setRaceTime(entry.getValue().stream().mapToLong(LapLog::getLapDuration).sum());
             pilotRaceLog.setBestLap(getBestLapTime(entry.getValue()));
             pilotRaceLogs.add(pilotRaceLog);
         }
